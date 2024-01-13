@@ -175,7 +175,7 @@ button:active {
 	opacity: 80%;
 }
 
-@media (max-width: 490px) {
+@media (max-width: 590px) {
 	html {
 		font-size: 80%;
 	}
@@ -186,7 +186,7 @@ button:active {
 	button {
 		font-size: 1.3rem;
 	}
-  .stat {
+	.stat {
 		display: block;
 	}
 }
@@ -194,7 +194,7 @@ button:active {
 	html {
 		font-size: 65%;
 	}
-	
+
 	#stats {
 		font-size: 1.5rem;
 	}
