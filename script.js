@@ -97,8 +97,8 @@ const locations = [
 	{
 		name: 'tradeyard',
 		'button text': [
-			'Eat at Canteen 🍖 \n 10 🥮',
-			'Upgrade Weapon ⚒️ \n 30 🥮',
+			'Eat at Canteen 🍖 \n 10 🪙',
+			'Upgrade Weapon ⚒️ \n 30 🪙',
 			'Back to Astera ↩',
 		],
 		'button functions': [buyHealth, buyWeapon, walkBack],
@@ -249,7 +249,7 @@ function buyWeapon() {
 			inventory.push(newWeapon);
 			setTimeout(() => {
 				text.innerText =
-					'You upgraded your weapon for 30 🥮.\n' + newWeapon + ' obtained.\n';
+					'You upgraded your weapon for 30 🪙.\n' + newWeapon + ' obtained.\n';
 				text.innerText +=
 					'\n In your inventory you have:\n ' + inventory.join('\r\n') + '\n';
 			}, 2000);
@@ -263,7 +263,7 @@ function buyWeapon() {
 				'You already have the most powerful weapon!\nYou may sell off your old weapons.\n';
 			text.innerText +=
 				'\n In your inventory you have: \n' + inventory.join('\r\n') + '\n';
-			button2.innerText = 'Sell Weapons 💰 \n + 15 🥮';
+			button2.innerText = 'Sell Weapons 💰 \n + 15 🪙';
 			button2.onclick = sellWeapon;
 		}, 2000);
 	}
@@ -276,7 +276,7 @@ function sellWeapon() {
 		let oldWeapon = inventory.shift();
 		text.innerText += '\nSelling off your junk...';
 		setTimeout(() => {
-			text.innerText = 'You sold ' + oldWeapon + ' for 15 🥮.\n';
+			text.innerText = 'You sold ' + oldWeapon + ' for 15 🪙.\n';
 			text.innerText +=
 				'\n In your inventory you have: \n' + inventory.join('\r\n') + '\n';
 		}, 2000);
@@ -366,13 +366,13 @@ function dodge() {
 		health -= 50;
 		healthText.innerText = health;
 	} else if (Math.floor(Math.random() * 100 + 1) > 40) {
-		text.innerText = `${monsters[fighting].name} is getting ready for a big attack.\nYou picked up 7 🥮 in the meantime.\n`;
+		text.innerText = `${monsters[fighting].name} is getting ready for a big attack.\nYou picked up 7 🪙 in the meantime.\n`;
 		gold += 7;
 		goldText.innerText = gold;
 	} else if (Math.floor(Math.random() * 100 + 1) > 20) {
 		text.innerText = `You dodge the attack from ${monsters[fighting].name}.\n ${monsters[fighting].name} looks at you angrily.\n`;
 	} else if (Math.floor(Math.random() * 100 + 1) > 6) {
-		text.innerText = `✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n\nA ${monsters[fighting].name} Gem drops from the monster's butthole.\n You quickly retrieve it while ${monsters[fighting].name} is distracted.\nYou gain 999 🥮.\n\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n`;
+		text.innerText = `✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n\nA ${monsters[fighting].name} Gem drops from the monster's butthole.\n You quickly retrieve it while ${monsters[fighting].name} is distracted.\nYou gain 999 🪙.\n\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n`;
 		gold += 999;
 		goldText.innerText = gold;
 	} else {
@@ -392,7 +392,7 @@ function defeatMonster() {
 	goldText.innerText = gold;
 	xpText.innerText = xp;
 	update(locations[4]);
-	text.innerText += `The ${monsters[fighting].name} is slain!\n Your level increased by ${xpGain}!\nYou found ${goldGain} 🥮.\n`;
+	text.innerText += `The ${monsters[fighting].name} is slain!\n Your level increased by ${xpGain}!\nYou found ${goldGain} 🪙.\n`;
 }
 
 function runAway() {
