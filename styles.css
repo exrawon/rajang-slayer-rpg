@@ -167,3 +167,33 @@ button:active {
 #button3:hover {
 	opacity: 80%;
 }
+
+@media (max-width: 490px) {
+	html {
+		font-size: 80%;
+	}
+	#buttonwrapper1 {
+		flex-direction: column;
+		min-height: 150px;
+	}
+	button {
+		font-size: 1.3rem;
+	}
+}
+@media (max-width: 400px) {
+	html {
+		font-size: 65%;
+	}
+	.stat {
+		display: block;
+	}
+	#stats {
+		font-size: 1.5rem;
+	}
+}
+
+@media (max-width: 220px) {
+	html {
+		font-size: 50%;
+	}
+}

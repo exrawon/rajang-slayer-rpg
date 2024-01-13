@@ -97,7 +97,7 @@ const locations = [
 	{
 		name: 'tradeyard',
 		'button text': [
-			'Eat at Canteen 🍖 \n 10 ',
+			'Eat at Canteen 🍖 \n 10 🥯',
 			'Upgrade Weapon ⚒️ \n 30 🥯',
 			'Back to Astera ↩',
 		],
@@ -232,7 +232,7 @@ function buyHealth() {
 		text.innerText +=
 			"\nChomp chomp! You eat and gain 20 ❤️.\nYou eat until you are stuffed!\nThat's enough for now.\n";
 	} else if (gold >= 10 && health >= 200) {
-		text.innerText = 'You are already at max (200 ❤️) health!\n';
+		text.innerText = 'You are already at max ( 200 ❤️ ) health!\n';
 	} else {
 		text.innerText = 'You do not have enough gold to buy food.\n';
 	}
@@ -259,7 +259,7 @@ function buyWeapon() {
 	} else {
 		setTimeout(() => {
 			text.innerText =
-				'You already have the most powerful weapon!\nYou may sell off your old weapons to the Blacksmith.\n';
+				'You already have the most powerful weapon!\nYou may sell off your old weapons.\n';
 			text.innerText +=
 				'\n In your inventory you have: \n' + inventory.join('\r\n') + '\n';
 			button2.innerText = 'Sell Weapons 💰 \n + 15 🥯';
