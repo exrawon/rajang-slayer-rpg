@@ -1,5 +1,5 @@
 let xp = 1,
-	health = 100,
+	health = 173,
 	gold = 50,
 	currentWeapon = 0;
 let fighting,
@@ -226,11 +226,12 @@ function buyHealth() {
 		text.innerText += '\nChomp chomp! You gain 20 ❤️.';
 	} else if (gold >= 10 && health >= 180 && health < 200) {
 		gold -= 10;
-		health += 200 - health;
+		let healthRound = 200 - health;
+		health += healthRound;
 		goldText.innerText = gold;
 		healthText.innerText = 200;
 		text.innerText +=
-			"\nChomp chomp! You eat and gain 20 ❤️.\nYou eat until you are stuffed!\nThat's enough for now.\n";
+			"\nSlurp slurp! You gain " + healthRound + " ❤️.\nYou let out a big burp!\nThat's enough food for now...\n";
 	} else if (gold >= 10 && health >= 200) {
 		text.innerText = 'You are already at max ( 200 ❤️ ) health!\n';
 	} else {
