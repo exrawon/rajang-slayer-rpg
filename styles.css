@@ -9,7 +9,7 @@
 	bottom: 0;
 	right: 0;
 	padding-right: 5px;
-	font-size: 0.8em;
+	font-size: 1em;
 }
 
 html {
@@ -22,49 +22,9 @@ html {
 body {
 	background-color: #0a0a23;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	font-size: 1.4rem;
 	scrollbar-width: none;
 	height: 100svh;
 	overflow: hidden;
-}
-
-/* title and tap to play screen cover */
-#cover {
-	position: absolute;
-	background: #0a0a23;
-	margin: 0;
-	top: 0;
-	left: 0;
-	height: 100svh;
-	width: 100vw;
-	/* opacity:95%; */
-	z-index: 10;
-	color: white;
-	font-family: 'Poppins';
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	gap: 30px;
-}
-
-#coverTextLarge {
-	font-size: 4rem;
-	text-align: center;
-	text-shadow: 2px 2px gray;
-	cursor: pointer;
-	opacity: 0.9;
-}
-#coverTextLarge:hover {
-	opacity: 1;
-}
-
-#coverTextSmall {
-	color: white;
-	-webkit-animation: fadein 2s ease-out alternate infinite;
-	-moz-animation: fadein 2s ease-out alternate infinite;
-	animation: fadein 2s ease-out alternate infinite;
-	cursor: pointer;
 }
 
 #banner {
@@ -97,12 +57,12 @@ body {
 	background-color: #0a0a23;
 	color: #ffffff;
 	padding: 10px;
-	font-size: 1.3rem;
+	font-size: 1rem;
 	/* text-align: center; */
 }
 
 #text-scrollbox {
-	max-height: 30svh;
+	max-height: 50svh;
 	overflow-y: scroll;
 	display: flex;
 	flex-direction: column-reverse;
@@ -127,7 +87,7 @@ body {
 	padding-left: 10px;
 	padding-right: 15px;
 }
-
+/* buttons styling */
 #buttonwrapper1 {
 	display: flex;
 	justify-content: center;
@@ -146,30 +106,63 @@ button {
 	border: 3px solid #feac32;
 	border-radius: 4px;
 	height: 80px;
-	font-size: 0.75em;
+	font-size: 0.85rem;
 	font-family: 'Poppins';
 	font-weight: 600;
 	padding: 10px;
 	flex: 1 0 0px;
 }
-
 button:hover {
 	background: #fecc4c;
 	border: 3px solid #feac32;
 }
-
 button:active {
 	background: #ffac33;
 }
-
 #button3 {
 	background: #dc3545;
 	border: gray 2px solid;
 	margin-bottom: 5px;
 }
-
 #button3:hover {
 	opacity: 80%;
+}
+
+/* title and tap to play screen cover */
+#cover {
+	position: absolute;
+	background: #0a0a23;
+	margin: 0;
+	top: 0;
+	left: 0;
+	height: 100svh;
+	width: 100vw;
+	/* opacity:95%; */
+	z-index: 10;
+	color: white;
+	font-family: 'Poppins';
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 30px;
+}
+#coverTextLarge {
+	font-size: 4rem;
+	text-align: center;
+	text-shadow: 2px 2px gray;
+	cursor: pointer;
+	opacity: 0.9;
+}
+#coverTextLarge:hover {
+	opacity: 1;
+}
+#coverTextSmall {
+	color: white;
+	-webkit-animation: fadein 2s ease-out alternate infinite;
+	-moz-animation: fadein 2s ease-out alternate infinite;
+	animation: fadein 2s ease-out alternate infinite;
+	cursor: pointer;
 }
 @-webkit-keyframes fadein {
 	0% {
@@ -179,7 +172,6 @@ button:active {
 		opacity: 1;
 	}
 }
-
 @-moz-keyframes fadein {
 	0% {
 		opacity: 0.1;
@@ -188,7 +180,6 @@ button:active {
 		opacity: 1;
 	}
 }
-
 @keyframes fadein {
 	0% {
 		opacity: 0.1;
@@ -198,33 +189,28 @@ button:active {
 	}
 }
 
-@media (max-width: 590px) {
-	html {
-		font-size: 80%;
-	}
+/* media queries */
+@media (max-width: 450px) {
 	#buttonwrapper1 {
 		flex-direction: column;
 		min-height: 150px;
 	}
-	button {
-		font-size: 1.3rem;
-	}
 	.stat {
 		display: block;
 	}
-}
-@media (max-width: 400px) {
-	html {
-		font-size: 65%;
+	#text {
+		font-size: 80%;
 	}
-
-	#stats {
-		font-size: 1.5rem;
+	#text-scrollbox {
+		max-height: 30svh;
+	}
+	#banner {
+		border-top-right-radius: 5px;
 	}
 }
 
-@media (max-width: 220px) {
-	html {
-		font-size: 50%;
+@media (max-width: 360px) {
+	#text {
+		font-size: 70%;
 	}
 }
