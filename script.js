@@ -413,7 +413,7 @@ function defeatMonster() {
 	goldText.innerText = gold;
 	xpText.innerText = xp;
 	update(locations[4]);
-	text.innerText += `🪙🪙🪙 Victory!! 🪙🪙🪙\n Your level increased by ${xpGain}!\nYou found ${goldGain} 🪙.\n🪙🪙🪙🪙🪙🪙🪙🪙🪙\n`;
+	text.innerText += `\nVictory!\n Your level increased by ${xpGain}!\nYou found ${goldGain} 🪙.\n\n`;
 }
 
 function runAway() {
