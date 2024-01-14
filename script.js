@@ -92,7 +92,7 @@ const locations = [
 		'button display': ['initial', 'initial', 'initial'],
 		'button3 background': ['#dc3545'],
 		banner: ['url(./assets/astera.webp)'],
-		text: 'You are in Astera.\n A loud roar echoes in the distance...\n Followed by faint screams.\n A Rajang is on the loose.\n Where would you like to go?\n',
+		text: 'You are in Astera.\n A loud roar echoes in the distance...\n Followed by faint screams.\n Rajang is on the loose.\n Where would you like to go?\n',
 	},
 	{
 		name: 'tradeyard',
