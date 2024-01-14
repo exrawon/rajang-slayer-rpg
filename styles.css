@@ -22,6 +22,7 @@ body {
 	margin: 0;
 	top: 0;
 	left: 0;
+	min-height: 100%;
 	height: 100vh;
 	width: 100vw;
 	/* opacity:95%; */
@@ -93,10 +94,10 @@ body {
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 40px;
+	/* margin-top: 40px; */
 	margin-bottom: 0px;
 	padding: 10px;
-	min-height: 50px;
+	min-height: 100px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 100px;
 }
@@ -109,6 +110,7 @@ body {
 	margin-right: auto;
 	padding: 10px;
 	border-radius: 3px;
+	max-height: 100%;
 }
 
 #controls,
