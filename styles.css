@@ -77,7 +77,7 @@ body {
 	padding: 10px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 100px;
-	height: 7svh;
+	height: 5svh;
 	/* min-height: 60px; */
 	/* max-height: 20%; */
 }
@@ -102,7 +102,7 @@ body {
 }
 
 #text-scrollbox {
-	max-height: 40svh;
+	max-height: 30svh;
 	overflow-y: scroll;
 	display: flex;
 	flex-direction: column-reverse;
