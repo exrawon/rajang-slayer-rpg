@@ -213,4 +213,7 @@ button:active {
 	#text {
 		font-size: 70%;
 	}
+	#text-scrollbox {
+		max-height: 25svh;
+	}
 }
