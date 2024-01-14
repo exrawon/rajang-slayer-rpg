@@ -376,17 +376,17 @@ function dodge() {
 	antiSpam(2100);
 	health -= 2;
 	healthText.innerText = health;
-	if (Math.floor(Math.random() * 100 + 1) > 90) {
+	if (Math.floor(Math.random() * 100 + 1) > 70) {
 		text.innerText += `\nYou tripped and fell over a rock.\nYou lost 50 ❤️ health.\n--------------------------------------------------------------------------------`;
 		health -= 50;
 		healthText.innerText = health;
-	} else if (Math.floor(Math.random() * 100 + 1) > 99) {
+	} else if (Math.floor(Math.random() * 100 + 1) > 40) {
 		text.innerText += `\n${monsters[fighting].name} is getting ready for a big attack.\nYou looted 7 🪙 in the meantime.\n--------------------------------------------------------------------------------`;
 		gold += 7;
 		goldText.innerText = gold;
-	} else if (Math.floor(Math.random() * 100 + 1) > 99) {
+	} else if (Math.floor(Math.random() * 100 + 1) > 12) {
 		text.innerText += `\nYou dodge the attack from ${monsters[fighting].name}.\n ${monsters[fighting].name} looks at you angrily.\n--------------------------------------------------------------------------------`;
-	} else if (Math.floor(Math.random() * 100 + 1) > 99) {
+	} else if (Math.floor(Math.random() * 100 + 1) > 5) {
 		text.innerText += `\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n\nA ${monsters[fighting].name} Gem drops from the monster's butthole.\n You quickly retrieve it while ${monsters[fighting].name} is distracted.\nYou gain 999 🪙.\n\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n--------------------------------------------------------------------------------`;
 		gold += 999;
 		goldText.innerText = gold;
