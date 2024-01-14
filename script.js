@@ -148,7 +148,7 @@ const locations = [
 		'button display': ['initial', 'none', 'none'],
 		'button3 background': ['#bebebe'],
 		banner: ['url(./assets/quest_failed.jpg)'],
-		text: '☠️☠️☠️ Game Over. ☠️☠️☠️ \n You were carted away by your Palico.\n',
+		text: '\n☠️☠️☠️ Game Over. ☠️☠️☠️ \n You were carted away by your Palico.\n\n',
 	},
 	{
 		name: 'win',
@@ -203,8 +203,8 @@ function walkBack() {
 	setTimeout(() => update(locations[0]), 1000);
 }
 function newGame() {
-	text.innerText += '\nLoading new game...\n\n🐒\n\n';
 	antiSpam(3100);
+	text.innerText += '\nLoading new game...\n\n🐒\n\n';
 	setTimeout(() => update(locations[0]), 3000);
 	setTimeout(() => {
 		text.style.textAlign = 'initial';
@@ -349,7 +349,8 @@ function attack() {
 	monsterHealthText.innerText = monsterHealth;
 	if (health <= 0) {
 		healthText.innerText = 0;
-		lose();
+		text.innerText += `\n☠️ You have died. ☠️`;
+		setTimeout(lose,2000);
 	} else if (monsterHealth <= 0) {
 		monsterHealthText.innerText = 0;
 		text.innerText += `\n${monsters[fighting].name} was slain!`;
@@ -424,7 +425,6 @@ function runAway() {
 		: setTimeout(() => update(locations[2]), 1000);
 }
 function lose() {
-	antiSpam(500);
 	text.style.textAlign = 'center';
 	update(locations[5]);
 }
