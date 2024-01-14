@@ -328,9 +328,14 @@ function attack() {
 	antiSpam(2100);
 
 	let damageToPlayer = getMonsterAttackValue(monsters[fighting].level);
-	text.innerText += `\n${monsters[fighting].name} attacks! You lost ${damageToPlayer} ❤️ health.`;
-	text.innerText += `\nYou strike with ${weapons[currentWeapon].name}.`;
-	health -= damageToPlayer;
+	if (damageToPlayer !== 0) {
+		text.innerText += `\n${monsters[fighting].name} attacks! You lost ${damageToPlayer} ❤️ health.`;
+		text.innerText += `\nYou strike with ${weapons[currentWeapon].name}.`;
+		health -= damageToPlayer;
+	} else {
+		text.innerText += `\n${monsters[fighting].name} swings at you but it missed!`;
+	}
+
 	if (isMonsterHit()) {
 		let damageToMonster =
 			weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
@@ -353,7 +358,7 @@ function attack() {
 			: setTimeout(defeatMonster, 2000);
 	}
 	if (Math.random() <= 0.03 && inventory.length !== 1) {
-		text.innerText += ` Your ${inventory.pop()} breaks.`;
+		text.innerText += `\nYour ${inventory.pop()} breaks.\n--------------------------------------------------------------------------`;
 		currentWeapon--;
 	}
 }
@@ -408,7 +413,7 @@ function defeatMonster() {
 	goldText.innerText = gold;
 	xpText.innerText = xp;
 	update(locations[4]);
-	text.innerText += `✨✨✨ Victory!! ✨✨✨\n Your level increased by ${xpGain}!\nYou found ${goldGain} 🪙.\n✨✨✨✨✨✨✨✨✨\n`;
+	text.innerText += `🪙🪙🪙 Victory!! 🪙🪙🪙\n Your level increased by ${xpGain}!\nYou found ${goldGain} 🪙.\n🪙🪙🪙🪙🪙🪙🪙🪙🪙\n`;
 }
 
 function runAway() {
