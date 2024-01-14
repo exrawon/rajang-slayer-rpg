@@ -106,7 +106,7 @@ button {
 	border: 3px solid #feac32;
 	border-radius: 4px;
 	height: 80px;
-	font-size: 0.85rem;
+	font-size: 0.8rem;
 	font-family: 'Poppins';
 	font-weight: 600;
 	padding: 10px;
@@ -190,12 +190,12 @@ button:active {
 }
 
 /* media queries */
-@media (max-width: 450px) {
+@media (max-width: 420px) {
 	#buttonwrapper1 {
 		flex-direction: column;
 		min-height: 150px;
 	}
-	.stat {
+	#monsterStats .stat {
 		display: block;
 	}
 	#text {
@@ -215,5 +215,8 @@ button:active {
 	}
 	#text-scrollbox {
 		max-height: 25svh;
+	}
+	.stat {
+		display: block;
 	}
 }
