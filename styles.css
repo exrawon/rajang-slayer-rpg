@@ -190,7 +190,7 @@ button:active {
 }
 
 /* media queries */
-@media (max-width: 420px) {
+@media (max-width: 430px) {
 	#buttonwrapper1 {
 		flex-direction: column;
 		min-height: 150px;
