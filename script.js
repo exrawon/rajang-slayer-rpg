@@ -86,7 +86,7 @@ const locations = [
 		'button text': [
 			'Go to Tradeyard 🛒',
 			'Go to Ancient Forest 🌳',
-			'Fight Rajang 🐒\n ★★★★★★',
+			'Slay Rajang 🐒\n ★★★★★★',
 		],
 		'button functions': [goStore, goCave, fightBoss],
 		'button display': ['initial', 'initial', 'initial'],
@@ -110,8 +110,8 @@ const locations = [
 	{
 		name: 'ancient forest',
 		'button text': [
-			'Fight a Great Jagras 🦎\n  ★',
-			'Fight a Rathian 🦖\n  ★★★',
+			'Hunt a Great Jagras 🦎\n  ★',
+			'Hunt a Rathian 🦖\n  ★★★',
 			'Return from Expedition ↩',
 		],
 		'button functions': [fightEasy, fightHard, goTown],
