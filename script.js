@@ -64,14 +64,14 @@ const monsters = [
 	{
 		name: 'Great Jagras',
 		monsterIcon: ' 🦎',
-		level: 3,
-		health: 20,
+		level: 2,
+		health: 15,
 	},
 	{
 		name: 'Rathian',
 		monsterIcon: ' 🦖',
 		level: 8,
-		health: 200,
+		health: 150,
 	},
 	{
 		name: 'Rajang',
@@ -86,7 +86,7 @@ const locations = [
 		'button text': [
 			'Go to Tradeyard 🛒',
 			'Go to Ancient Forest 🌳',
-			'Fight Rajang\n ★★★★★★',
+			'Fight Rajang 🐒\n ★★★★★★',
 		],
 		'button functions': [goStore, goCave, fightBoss],
 		'button display': ['initial', 'initial', 'initial'],
@@ -110,8 +110,8 @@ const locations = [
 	{
 		name: 'ancient forest',
 		'button text': [
-			'Fight a Great Jagras\n  ★',
-			'Fight a Rathian\n  ★★★',
+			'Fight a Great Jagras 🦎\n  ★',
+			'Fight a Rathian 🦖\n  ★★★',
 			'Return from Expedition ↩',
 		],
 		'button functions': [fightEasy, fightHard, goTown],
@@ -157,7 +157,7 @@ const locations = [
 		'button display': ['initial', 'none', 'none'],
 		'button3 background': ['#bebebe'],
 		banner: ['url(./assets/quest_complete.jpg)'],
-		text: '🎉🎉🎉Congratulations!🎉🎉🎉\nYou defeated Rajang. Astera is saved! \n',
+		text: '\n✨✨✨✨✨✨✨✨✨✨✨✨✨\n🎉🎉🎉 Congratulations! 🎉🎉🎉\nYou defeated Rajang. Astera is saved! \n🎉🎉🎉 Thanks for playing! 🎉🎉🎉\n✨✨✨✨✨✨✨✨✨✨✨✨✨\n\n',
 	},
 ];
 
@@ -190,19 +190,25 @@ function update(location) {
 }
 function goTown() {
 	text.innerText += '\n Travelling by wingdrake...';
-	antiSpam(2200);
+	antiSpam(2100);
 	setTimeout(() => update(locations[0]), 2000);
+	setTimeout(() => {
+		text.style.textAlign = 'initial';
+	}, 2000);
 }
 
 function walkBack() {
-	text.innerText += '\n Walking back to Astera...';
+	text.innerText += '\n\n Walking back to Astera...';
 	antiSpam(1100);
 	setTimeout(() => update(locations[0]), 1000);
 }
 function newGame() {
-	text.innerText += '\n Loading new game...';
-	antiSpam(1100);
-	setTimeout(() => update(locations[0]), 1000);
+	text.innerText += '\nLoading new game...\n\n🐒\n\n';
+	antiSpam(3100);
+	setTimeout(() => update(locations[0]), 3000);
+	setTimeout(() => {
+		text.style.textAlign = 'initial';
+	}, 3000);
 }
 function goStore() {
 	text.innerText += '\n Using a ropelift...';
@@ -211,8 +217,11 @@ function goStore() {
 }
 function goCave() {
 	text.innerText += '\n Travelling by wingdrake...';
-	antiSpam(2200);
+	antiSpam(2100);
 	setTimeout(() => update(locations[2]), 2000);
+	setTimeout(() => {
+		text.style.textAlign = 'initial';
+	}, 2000);
 }
 
 function buyHealth() {
@@ -223,7 +232,7 @@ function buyHealth() {
 		goldText.innerText = gold;
 		healthText.innerText = health;
 
-		text.innerText += '\nChomp chomp! You gain 20 ❤️.';
+		text.innerText += '\nChomp chomp! You gain 20 ❤️ health.';
 	} else if (gold >= 10 && health >= 180 && health < 200) {
 		gold -= 10;
 		let healthRound = 200 - health;
@@ -231,15 +240,17 @@ function buyHealth() {
 		goldText.innerText = gold;
 		healthText.innerText = 200;
 		text.innerText +=
-			"\nSlurp slurp! You gain " + healthRound + " ❤️.\nYou let out a big burp!\nThat's enough food for now...\n";
+			'\nSlurp slurp! You gain ' +
+			healthRound +
+			" ❤️ health.\nYou let out a big burp!\nThat's enough food for now...\n";
 	} else if (gold >= 10 && health >= 200) {
-		text.innerText = 'You are already at max ( 200 ❤️ ) health!\n';
+		text.innerText = 'You are already at max ( 200 ) ❤️ health!\n';
 	} else {
 		text.innerText = 'You do not have enough gold to buy food.\n';
 	}
 }
 function buyWeapon() {
-	antiSpam(2200);
+	antiSpam(2100);
 	text.innerText += '\nTalking to the Blacksmith...';
 	if (currentWeapon < weapons.length - 1) {
 		if (gold >= 30) {
@@ -260,7 +271,7 @@ function buyWeapon() {
 	} else {
 		setTimeout(() => {
 			text.innerText =
-				'You already have the most powerful weapon!\nYou may sell off your old weapons.\n';
+				'You already have the most powerful weapon!\nYou may sell your old weapons for 15 🪙 each.\n';
 			text.innerText +=
 				'\n In your inventory you have: \n' + inventory.join('\r\n') + '\n';
 			button2.innerText = 'Sell Weapons 💰 \n + 15 🪙';
@@ -269,7 +280,7 @@ function buyWeapon() {
 	}
 }
 function sellWeapon() {
-	antiSpam(2200);
+	antiSpam(2100);
 	if (inventory.length > 1) {
 		gold += 15;
 		goldText.innerText = gold;
@@ -318,19 +329,20 @@ function goFight() {
 }
 
 function attack() {
-	antiSpam(500);
+	antiSpam(2100);
 
 	let damageToPlayer = getMonsterAttackValue(monsters[fighting].level);
-	text.innerText += `\nThe ${monsters[fighting].name} attacks!\n You lost ${damageToPlayer} ❤️.\n`;
-	text.innerText += ` \nYou attack with your ${weapons[currentWeapon].name}.\n`;
+	text.innerText += `\nThe ${monsters[fighting].name} attacks! You lost ${damageToPlayer} ❤️ health.`;
+	text.innerText += `\nYou strike with ${weapons[currentWeapon].name}.`;
 	health -= damageToPlayer;
 	if (isMonsterHit()) {
 		let damageToMonster =
 			weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
 		monsterHealth -= damageToMonster;
-		text.innerText += ` You dealt ${damageToMonster} ⚔️ damage!\n`;
+		text.innerText += ` You dealt ${damageToMonster} ⚔️ damage!\n--------------------------------------------------------------------------------`;
 	} else {
-		text.innerText += ' You miss.\n';
+		text.innerText +=
+			' You miss. 👀\n--------------------------------------------------------------------------------';
 	}
 	healthText.innerText = health;
 	monsterHealthText.innerText = monsterHealth;
@@ -339,7 +351,10 @@ function attack() {
 		lose();
 	} else if (monsterHealth <= 0) {
 		monsterHealthText.innerText = 0;
-		fighting === 2 ? winGame() : defeatMonster();
+		text.innerText += `\n${monsters[fighting].name} was slain!`;
+		fighting === 2
+			? setTimeout(winGame, 2000)
+			: setTimeout(defeatMonster, 2000);
 	}
 	if (Math.random() <= 0.03 && inventory.length !== 1) {
 		text.innerText += ` Your ${inventory.pop()} breaks.`;
@@ -358,26 +373,30 @@ function isMonsterHit() {
 }
 
 function dodge() {
-	antiSpam(500);
+	antiSpam(2100);
 	health -= 2;
 	healthText.innerText = health;
-	if (Math.floor(Math.random() * 100 + 1) > 70) {
-		text.innerText = `You tripped and fell over a rock.\nYou lost 50 ❤️.\n`;
+	if (Math.floor(Math.random() * 100 + 1) > 90) {
+		text.innerText += `\nYou tripped and fell over a rock.\nYou lost 50 ❤️ health.\n--------------------------------------------------------------------------------`;
 		health -= 50;
 		healthText.innerText = health;
-	} else if (Math.floor(Math.random() * 100 + 1) > 40) {
-		text.innerText = `${monsters[fighting].name} is getting ready for a big attack.\nYou picked up 7 🪙 in the meantime.\n`;
+	} else if (Math.floor(Math.random() * 100 + 1) > 99) {
+		text.innerText += `\n${monsters[fighting].name} is getting ready for a big attack.\nYou looted 7 🪙 in the meantime.\n--------------------------------------------------------------------------------`;
 		gold += 7;
 		goldText.innerText = gold;
-	} else if (Math.floor(Math.random() * 100 + 1) > 20) {
-		text.innerText = `You dodge the attack from ${monsters[fighting].name}.\n ${monsters[fighting].name} looks at you angrily.\n`;
-	} else if (Math.floor(Math.random() * 100 + 1) > 6) {
-		text.innerText = `✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n\nA ${monsters[fighting].name} Gem drops from the monster's butthole.\n You quickly retrieve it while ${monsters[fighting].name} is distracted.\nYou gain 999 🪙.\n\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n`;
+	} else if (Math.floor(Math.random() * 100 + 1) > 99) {
+		text.innerText += `\nYou dodge the attack from ${monsters[fighting].name}.\n ${monsters[fighting].name} looks at you angrily.\n--------------------------------------------------------------------------------`;
+	} else if (Math.floor(Math.random() * 100 + 1) > 99) {
+		text.innerText += `\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n\nA ${monsters[fighting].name} Gem drops from the monster's butthole.\n You quickly retrieve it while ${monsters[fighting].name} is distracted.\nYou gain 999 🪙.\n\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n--------------------------------------------------------------------------------`;
 		gold += 999;
 		goldText.innerText = gold;
 	} else {
 		monsterHealthText.innerText = 0;
-		fighting === 2 ? winGame() : defeatMonster();
+		text.style.textAlign = 'center';
+		text.innerText = `\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n\nYou received a divine blessing.\n\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n\n`;
+		fighting === 2
+			? setTimeout(winGame, 2000)
+			: setTimeout(defeatMonster, 2000);
 	}
 	if (health <= 0) {
 		healthText.innerText = 0;
@@ -385,6 +404,7 @@ function dodge() {
 	}
 }
 function defeatMonster() {
+	text.style.textAlign = 'center';
 	let goldGain = Math.floor(monsters[fighting].level * Math.random() * 6.7 + 5);
 	let xpGain = monsters[fighting].level;
 	gold += goldGain;
@@ -392,7 +412,7 @@ function defeatMonster() {
 	goldText.innerText = gold;
 	xpText.innerText = xp;
 	update(locations[4]);
-	text.innerText += `The ${monsters[fighting].name} is slain!\n Your level increased by ${xpGain}!\nYou found ${goldGain} 🪙.\n`;
+	text.innerText += `✨✨✨ Victory!! ✨✨✨\n Your level increased by ${xpGain}!\nYou found ${goldGain} 🪙.\n✨✨✨✨✨✨✨✨✨\n`;
 }
 
 function runAway() {
@@ -404,11 +424,13 @@ function runAway() {
 }
 function lose() {
 	antiSpam(500);
+	text.style.textAlign = 'center';
 	update(locations[5]);
 }
 
 function winGame() {
 	antiSpam(500);
+	text.style.textAlign = 'center';
 	update(locations[6]);
 }
 
