@@ -7,6 +7,7 @@
 	-webkit-user-select: none; /* Safari */
 	-ms-user-select: none; /* IE 10 and IE 11 */
 	user-select: none; /* Standard syntax */
+	touch-action: manipulation;
 }
 
 body {
@@ -14,7 +15,6 @@ body {
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	font-size: 1.4rem;
 	scrollbar-width: none;
-	height: 100svh;
 }
 
 #cover {
@@ -23,8 +23,8 @@ body {
 	margin: 0;
 	top: 0;
 	left: 0;
-	min-height: 100%;
-	height: 100vh;
+	min-height: 100%; /* this */
+	height: 100lvh;
 	width: 100vw;
 	/* opacity:95%; */
 	z-index: 10;
