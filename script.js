@@ -347,20 +347,20 @@ function attack() {
 	}
 	healthText.innerText = health;
 	monsterHealthText.innerText = monsterHealth;
+	if (Math.random() <= 0.03 && inventory.length !== 1) {
+		text.innerText += `\nYour ${inventory.pop()} breaks.\n--------------------------------------------------------------------------`;
+		currentWeapon--;
+	}
 	if (health <= 0) {
 		healthText.innerText = 0;
 		text.innerText += `\n☠️ You have died. ☠️`;
-		setTimeout(lose,2000);
+		setTimeout(lose, 2000);
 	} else if (monsterHealth <= 0) {
 		monsterHealthText.innerText = 0;
 		text.innerText += `\n${monsters[fighting].name} was slain!`;
 		fighting === 2
 			? setTimeout(winGame, 2000)
 			: setTimeout(defeatMonster, 2000);
-	}
-	if (Math.random() <= 0.03 && inventory.length !== 1) {
-		text.innerText += `\nYour ${inventory.pop()} breaks.\n--------------------------------------------------------------------------`;
-		currentWeapon--;
 	}
 }
 
@@ -402,7 +402,8 @@ function dodge() {
 	}
 	if (health <= 0) {
 		healthText.innerText = 0;
-		lose();
+		text.innerText += `\n☠️ You have died. ☠️`;
+		setTimeout(lose, 2000);
 	}
 }
 function defeatMonster() {
