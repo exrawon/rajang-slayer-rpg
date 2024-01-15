@@ -1,70 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no"
-    />
-    <title>Rajang Slayer RPG</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="icon" href="./assets/icon.jpg" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Raleway"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <audio autoplay loop src="./assets/bgm_rajang .mp3"></audio>
-    <div id="cover" class="tapCover">
-      <span id="coverTextLarge" class="tapCover"> Rajang Slayer RPG</span>
-      <span id="coverTextSmall" class="tapCover">Tap to Play</span>
-    </div>
-    <div id="banner"></div>
-    <div id="game">
-      <div id="stats">
-        <span class="stat"
-          >LV: <strong><span id="xpText">1</span></strong></span
-        >
-        <span class="stat"
-          >Health: <strong><span id="healthText">100</span> ❤️</strong></span
-        >
-        <span class="stat"
-          >Gold: <strong><span id="goldText">30</span></strong> 🪙</span
-        >
-      </div>
-      <div id="controls">
-        <div id="buttonwrapper1">
-          <button id="button1">Go to Tradeyard 🛒</button>
-          <button id="button2">Go to Ancient Forest 🌳</button>
-        </div>
-        <div id="buttonwrapper2">
-          <button id="button3">Slay Rajang 🐒 <br />★★★★★★</button>
-        </div>
-      </div>
-      <div id="monsterStats">
-        <span class="stat"
-          >Enemy:&nbsp; <strong><span id="monsterName"></span></strong
-        ></span>
-        <span class="stat"
-          >Health:&nbsp;
-          <strong><span id="monsterHealth"></span> ❤️</strong></span
-        >
-      </div>
-      <div id="text-scrollbox">
-        <div id="text">
-          Welcome to Rajang Slayer. <br />
-          Rajang is furiously beating his meat in Astera. <br />
-          You must defeat him. <br />
-          Where do you want to go? Use the buttons above. <br />
-        </div>
-      </div>
-    </div>
-    <script src="./script.js"></script>
-  </body>
-  <span id="version">v1.2.0 AT</span>
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no"
+		/>
+		<title>Rajang Slayer RPG</title>
+		<link rel="stylesheet" href="./styles.css" />
+		<link rel="icon" href="./assets/icon.jpg" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Poppins"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Raleway"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div id="cover" class="tapCover">
+			<div id="title-container">
+				<span id="coverTextLarge" class="tapCover"> Rajang Slayer</span>
+			</div>
+			<span id="coverTextSmall" class="tapCover">Press to Start</span>
+			<audio autoplay loop src="./assets/bgm_rajang .mp3"></audio>
+		</div>
+		<div id="banner"></div>
+		<div id="game">
+			<div id="stats">
+				<span class="stat"
+					>LV: <strong><span id="xpText">1</span></strong></span
+				>
+				<span class="stat"
+					>Health: <strong><span id="healthText">100</span> ❤️</strong></span
+				>
+				<span class="stat"
+					>Gold: <strong><span id="goldText">30</span></strong> 🪙</span
+				>
+			</div>
+			<div id="controls">
+				<div id="buttonwrapper1">
+					<button id="button1">Go to Tradeyard 🛒</button>
+					<button id="button2">Go to Ancient Forest 🌳</button>
+				</div>
+				<div id="buttonwrapper2">
+					<button id="button3">Slay Rajang 🐒 <br />★★★★★★</button>
+				</div>
+			</div>
+			<div id="monsterStats">
+				<span class="stat"
+					>Enemy:&nbsp; <strong><span id="monsterName"></span></strong
+				></span>
+				<span class="stat"
+					>Health:&nbsp;
+					<strong><span id="monsterHealth"></span> ❤️</strong></span
+				>
+			</div>
+			<div id="text-scrollbox">
+				<div id="text">
+					Welcome to Rajang Slayer. <br />
+					Rajang is furiously beating his meat in Astera. <br />
+					You must defeat him. <br />
+					Where do you want to go? Use the buttons above. <br />
+				</div>
+			</div>
+		</div>
+		<script src="./script.js"></script>
+	</body>
+	<span id="version">v1.2.1 AT</span>
 </html>
