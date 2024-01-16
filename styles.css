@@ -15,8 +15,8 @@
 
 html {
 	-webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -khtml-user-select: none;
+	-webkit-touch-callout: none;
+	-khtml-user-select: none;
 	-webkit-user-select: none; /* Safari */
 	-ms-user-select: none; /* IE 10 and IE 11 */
 	user-select: none; /* Standard syntax */
@@ -178,8 +178,8 @@ button:active {
 	clip-path: inset(0px 50% 0px 50%);
 	-webkit-clip-path: inset(0px 50% 0px 50%);
 	animation: revealText 1s ease-in forwards,
-		blinkEyes 15s ease-in-out infinite 7000ms;
-	margin-bottom: 10vh;
+		blinkEyes 15s ease-in-out infinite 5000ms;
+	margin-bottom: 12vw;
 }
 #title-container:hover {
 	opacity: 0.9;
@@ -255,7 +255,7 @@ button:active {
 
 #coverTextSmall {
 	text-transform: uppercase;
-	color: white;
+	color: #ffffff;
 	cursor: pointer;
 	-webkit-animation: fadein 1.5s ease-out alternate infinite;
 	-moz-animation: fadein 1.5s ease-out alternate infinite;
