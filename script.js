@@ -326,6 +326,7 @@ function buyHealth() {
 		playDenied();
 		text.innerText = 'You are already at max ( 200 ) ❤️ health!\n';
 	} else {
+		playDenied();
 		text.innerText = 'You do not have enough 🪙 gold to buy food.\n';
 	}
 }
@@ -355,6 +356,7 @@ function buyWeapon() {
 					playSpending();
 				}, 2000);
 			} else {
+				playDenied();
 				text.innerText =
 					'You do not have enough 🪙 gold to buy a new weapon.\n\nInventory:\n ' +
 					inventory.join('\r\n') +
@@ -373,6 +375,7 @@ function buyWeapon() {
 				playSpending();
 			}, 2000);
 		} else {
+			playDenied();
 			text.innerText =
 				'You do not have enough 🪙 gold to buy a new weapon.\n\nInventory:\n ' +
 				inventory.join('\r\n') +
