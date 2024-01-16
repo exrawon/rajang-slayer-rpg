@@ -32,7 +32,7 @@ body {
 }
 
 #banner {
-	background-image: url(./assets/astera.webp);
+	background-image: url(./assets/astera.jpg);
 	background-size: cover;
 	max-width: 600px;
 	margin-left: auto;
@@ -84,7 +84,7 @@ body {
 	border: 1px solid #0a0a23;
 	color: #ffffff;
 	padding: 5px;
-	background: #c70d0d;
+	background: firebrick;
 	display: none;
 }
 
@@ -172,13 +172,13 @@ button:active {
 	justify-content: center;
 	height: 15%;
 	width: 100%;
-	background-color: #fecc4c;
+	background-color: #ffb84d;
 	color: #0a0a23;
 	font-size: 12cqw;
 	clip-path: inset(0px 50% 0px 50%);
 	-webkit-clip-path: inset(0px 50% 0px 50%);
 	animation: revealText 1s ease-in forwards,
-		blinkEyes 15s ease-in-out infinite 5000ms;
+		blinkEyes 15s ease-in-out infinite 3000ms;
 	margin-bottom: 12vw;
 }
 #title-container:hover {

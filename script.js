@@ -34,23 +34,23 @@ const weapons = [
 		power: 20,
 	},
 	{
-		name: '🗡️✦✦ Buster Sword II',
+		name: '🗡️✦✦ Jagras Deathclaw',
 		power: 40,
 	},
 	{
-		name: '🗡️✦✦✦ Jagras Deathclaw',
+		name: '🗡️✦✦✦ Guild Palace Blade',
 		power: 60,
 	},
 	{
-		name: "🗡️✦✦✦✦ Wyvern Ignition 'Steel'",
-		power: 90,
+		name: '🗡️✦✦✦✦ Nergal Judicator',
+		power: 95,
 	},
 	{
-		name: "🗡️✦✦✦✦✦ Wyvern Ignition 'Impact'",
+		name: '🗡️✦✦✦✦✦ Wyvern Ignition',
 		power: 130,
 	},
 	{
-		name: "🗡️✦✦✦✦✦✦ Wyvern Ignition 'Silver'",
+		name: '🗡️✦✦✦✦✦✦ Winged Seraphyd',
 		power: 175,
 	},
 	{
@@ -72,20 +72,23 @@ const monsters = [
 		monsterIcon: ' 🦎',
 		level: 5,
 		health: 50,
-		goldMultiplier: 1.7,
+		goldMultiplier: 2,
+		color: '#1EFF0C',
 	},
 	{
 		name: 'Rathalos',
 		monsterIcon: ' 🐦',
 		level: 20,
 		health: 400,
-		goldMultiplier: 4.3,
+		goldMultiplier: 4.5,
+		color: '#33CCFF',
 	},
 	{
-		name: 'Rajang',
+		name: 'AT Rajang',
 		monsterIcon: ' 💀',
 		level: 30,
 		health: 69000,
+		color: '#FFB84D',
 	},
 ];
 const locations = [
@@ -99,7 +102,7 @@ const locations = [
 		'button functions': [goStore, goCave, fightBoss],
 		'button display': ['initial', 'initial', 'initial'],
 		'button3 background': ['#dc3545'],
-		banner: ['url(./assets/astera.webp)'],
+		banner: ['url(./assets/astera.jpg)'],
 		text: 'You are in Astera.\n A loud roar echoes in the distance...\n Followed by faint screams.\n Rajang is on the loose.\n Where would you like to go?\n',
 	},
 	{
@@ -125,8 +128,8 @@ const locations = [
 		'button functions': [fightEasy, fightHard, goTown],
 		'button display': ['initial', 'initial', 'initial'],
 		'button3 background': ['#bebebe'],
-		banner: ['url(./assets/ancient_forest.webp)'],
-		text: 'You ride a wingdrake to the Ancient Forest.\n You see some monsters.\n',
+		banner: ['url(./assets/ancient_forest.jpg)'],
+		text: 'Many monsters roam the Ancient Forest.\nYou see a Great Jagras devouring an Aptonoth...\nMeanwhile a Rathalos patrols the sky.\n',
 	},
 	{
 		name: 'fight',
@@ -136,6 +139,7 @@ const locations = [
 		'button3 background': ['#acc8d7'],
 		text: 'You are fighting a monster.\n',
 	},
+	//legacy code, removed from game in ver 1.3.0 AT
 	{
 		name: 'kill monster',
 		'button text': [
@@ -146,7 +150,7 @@ const locations = [
 		'button functions': [goCave, goTown, goTown],
 		'button display': ['initial', 'none', 'initial'],
 		'button3 background': ['#bebebe'],
-		banner: ['url(./assets/ancient_forest.webp)'],
+		banner: ['url(./assets/ancient_forest.jpg)'],
 		text: '',
 	},
 	{
@@ -170,36 +174,44 @@ const locations = [
 ];
 
 //initialize buttons
-button1.onclick = goStore;
-button2.onclick = goCave;
-button3.onclick = fightBoss;
+button1.onclick = () => {
+	goStore();
+};
+button2.onclick = () => {
+	goCave();
+};
+button3.onclick = () => {
+	fightBoss();
+};
+banner.onclick = () => {
+	pauseBGM();
+	playClick();
+};
 cover[1].onclick = tapToPlay;
 cover[2].onclick = tapToPlay;
 version.onclick = pauseBGM;
-banner.onclick = pauseBGM;
 
 function tapToPlay() {
+	playRoar();
+	// playPikachu();
 	document.querySelector('#coverTextSmall').classList.add('disabledbutton');
 	setTimeout(() => {
 		document
 			.querySelector('#coverTextSmall')
 			.classList.remove('disabledbutton');
-	}, 2100);
+	}, 3100);
 	document.querySelector('#coverTextLarge').classList.add('disabledbutton');
 	setTimeout(() => {
 		document
 			.querySelector('#coverTextLarge')
 			.classList.remove('disabledbutton');
-	}, 2100);
-
-	playRoar();
+	}, 3100);
 	document.querySelector('#title-container').classList.add('titleClicked');
-
 	setTimeout(() => {
 		for (let elem of cover) {
 			elem.style.display = 'none';
 		}
-	}, 2000);
+	}, 3000);
 }
 function resetCover() {
 	bgmMain.currentTime = 0;
@@ -226,9 +238,11 @@ function update(location) {
 	text.innerText = location.text;
 }
 function goTown() {
+	playGoBack();
 	bgmWild.pause();
 	bgmWild.currentTime = 0;
 	bgmMain.play();
+	fighting = undefined;
 	text.innerText += '\n Travelling by wingdrake...';
 	antiSpam(2100);
 	setTimeout(() => {
@@ -237,6 +251,7 @@ function goTown() {
 	}, 2000);
 }
 function goStore() {
+	playClick();
 	antiSpam(1100);
 	inStore = true;
 	setTimeout(() => {
@@ -261,6 +276,7 @@ function goStore() {
 	}
 }
 function goCave() {
+	playClick();
 	bgmWild.pause();
 	bgmWild.currentTime = 0;
 	bgmMain.play();
@@ -273,6 +289,7 @@ function goCave() {
 }
 
 function walkBack() {
+	playGoBack();
 	text.innerText += '\n\n Walking back to Astera...';
 	antiSpam(1100);
 	setTimeout(() => {
@@ -285,6 +302,7 @@ function walkBack() {
 }
 
 function buyHealth() {
+	playClick();
 	antiSpam(1000);
 	if (gold >= 10 && health < 180) {
 		gold -= 10;
@@ -305,12 +323,14 @@ function buyHealth() {
 			healthRound +
 			" ❤️ health.\nYou let out a big burp!\nThat's enough food for now...\n";
 	} else if (gold >= 10 && health >= 200) {
+		playDenied();
 		text.innerText = 'You are already at max ( 200 ) ❤️ health!\n';
 	} else {
 		text.innerText = 'You do not have enough 🪙 gold to buy food.\n';
 	}
 }
 function buyWeapon() {
+	playClick();
 	antiSpam(2100);
 	text.innerText += '\n\nTalking to the Blacksmith...';
 	if (currentWeapon < weapons.length - 1) {
@@ -365,10 +385,12 @@ function buyWeapon() {
 			text.innerText += '\nInventory: \n' + inventory.join('\r\n') + '\n';
 			button2.innerText = 'Sell Weapons 💰 \n + 15 🪙';
 			button2.onclick = sellWeapon;
+			playDenied();
 		}, 2000);
 	}
 }
 function sellWeapon() {
+	playClick();
 	antiSpam(2100);
 	if (inventory.length > 1) {
 		gold += 15;
@@ -381,27 +403,34 @@ function sellWeapon() {
 			playSelling();
 		}, 2000);
 	} else {
-		text.innerText = "Don't sell your only weapon!\n";
+		playDenied();
+		text.innerText = "Don't sell your only weapon! 👀\n";
 		text.innerText += '\nInventory: \n' + inventory.join('\r\n') + '\n';
 	}
 }
 function fightEasy() {
+	playClick();
 	banner.style.backgroundImage = 'url(./assets/great_jagras.jpg)';
 	fighting = 0;
+	monsterName.style.color = monsters[fighting].color;
 	text.innerText += '\n Preparing for combat...';
 	antiSpam(1100);
 	setTimeout(() => goFight(), 1000);
 }
 function fightHard() {
+	playClick();
 	banner.style.backgroundImage = 'url(./assets/rathalos.jpg)';
 	fighting = 1;
+	monsterName.style.color = monsters[fighting].color;
 	text.innerText += '\n Preparing for combat...';
 	antiSpam(1100);
 	setTimeout(() => goFight(), 1000);
 }
 function fightBoss() {
+	playClick();
 	banner.style.backgroundImage = 'url(./assets/rajang.jpg)';
 	fighting = 2;
+	monsterName.style.color = monsters[fighting].color;
 	text.innerText += '\n Preparing for combat...';
 	antiSpam(1100);
 	setTimeout(() => goFight(), 1000);
@@ -426,8 +455,8 @@ function goFight() {
 }
 
 function attack() {
+	playClick();
 	antiSpam(2100);
-
 	let damageToPlayer = getMonsterAttackValue(monsters[fighting].level);
 	if (damageToPlayer !== 0) {
 		text.innerText += `\n${monsters[fighting].name} attacks! You lost ${damageToPlayer} ❤️ health.`;
@@ -439,17 +468,20 @@ function attack() {
 	}
 
 	if (isMonsterHit()) {
+		currentWeapon === weapons.length - 1 ? playHitBoss() : playHitMonster();
 		let damageToMonster =
 			weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
 		monsterHealth -= damageToMonster;
 		text.innerText += `\nYou dealt ${damageToMonster} ⚔️ damage!\n--------------------------------------------------------------------------`;
 	} else {
+		playHitMiss();
 		text.innerText +=
 			'\nYou miss. 👀\n--------------------------------------------------------------------------';
 	}
 	healthText.innerText = health;
 	monsterHealthText.innerText = monsterHealth;
-	if (Math.random() <= 0.02 && inventory.length !== 1) {
+	if (Math.random() <= 0.03 && inventory.length !== 1) {
+		playDestroyed();
 		text.innerText += `\nYour ${inventory.pop()} breaks.\n--------------------------------------------------------------------------`;
 		currentWeapon--;
 	}
@@ -457,12 +489,15 @@ function attack() {
 		if (monsterHealth <= 0) {
 			monsterHealthText.innerText = 0;
 		}
+		playLose();
 		healthText.innerText = 0;
 		text.innerText += `\n☠️ You have died. ☠️`;
 		setTimeout(lose, 2000);
 	} else if (monsterHealth <= 0) {
-		if (health < 0) {
-			healthText.innerText = 0;
+		if (fighting !== 2) {
+			setTimeout(() => {
+				playDefeatMonster();
+			}, 600);
 		}
 		monsterHealthText.innerText = 0;
 		text.innerText += `\n${monsters[fighting].name} was slain!`;
@@ -479,10 +514,11 @@ function getMonsterAttackValue(level) {
 }
 
 function isMonsterHit() {
-	return Math.random() > 0.05 || health < 20;
+	return Math.random() > 0.1 || health < 20;
 }
 
 function dodge() {
+	playDodge();
 	antiSpam(2100);
 	health -= 2;
 	healthText.innerText = health;
@@ -490,18 +526,21 @@ function dodge() {
 		text.innerText += `\nYou tripped and fell over a rock.\nYou lost 50 ❤️ health.\n--------------------------------------------------------------------------`;
 		health -= 50;
 		healthText.innerText = health;
-	} else if (Math.floor(Math.random() * 100 + 1) > 40) {
+		if (health > 0) {
+			playHurt();
+		}
+	} else if (Math.floor(Math.random() * 100 + 1) > 39) {
+		playSelling();
 		text.innerText += `\nOooh...a shiny! You looted 7 🪙.\n--------------------------------------------------------------------------`;
 		gold += 7;
 		goldText.innerText = gold;
-		playSelling();
 	} else if (Math.floor(Math.random() * 100 + 1) > 9) {
 		text.innerText += `\nYou dodge the attack from ${monsters[fighting].name}.\n ${monsters[fighting].name} looks at you angrily.\n--------------------------------------------------------------------------`;
 	} else if (Math.floor(Math.random() * 100 + 1) > 4) {
+		playRareDrop();
 		text.innerText += `\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n\nA ${monsters[fighting].name} Gem drops from the monster's butthole.\n You quickly retrieve it while ${monsters[fighting].name} is distracted.\nYou gain 200 🪙.\n\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n--------------------------------------------------------------------------`;
 		gold += 200;
 		goldText.innerText = gold;
-		playPikachu();
 	} else {
 		monsterHealthText.innerText = 0;
 		text.style.textAlign = 'center';
@@ -512,12 +551,14 @@ function dodge() {
 			: setTimeout(defeatMonster, 2000);
 	}
 	if (health <= 0) {
+		playLose();
 		healthText.innerText = 0;
 		text.innerText += `\n☠️ You have died. ☠️`;
 		setTimeout(lose, 2000);
 	}
 }
 function defeatMonster() {
+	playLevelUp();
 	let goldGain =
 		Math.floor(Math.random() * 5) +
 		Math.round(
@@ -528,11 +569,12 @@ function defeatMonster() {
 	xp += xpGain;
 	goldText.innerText = gold;
 	xpText.innerText = xp;
-	update(locations[4]);
-	text.innerText += `Victory!\n You found ${goldGain} 🪙.\nYour level increased by ${xpGain}!\n`;
+	update(locations[2]);
+	text.innerText = `Victory!\n You found ${goldGain} 🪙.\nYour level increased by ${xpGain}!\n`;
 }
 
 function runAway() {
+	playEscape();
 	antiSpam(1600);
 	setTimeout(() => {
 		bgmBoss.pause();
@@ -554,6 +596,7 @@ function lose() {
 	bgmBoss.currentTime = 0;
 	bgmWild.pause();
 	bgmWild.currentTime = 0;
+
 	text.style.textAlign = 'center';
 	update(locations[5]);
 }
@@ -614,6 +657,12 @@ playRoar = function () {
 	audio.play();
 };
 
+// playPikachu = function () {
+// 	let audio = new Audio('./assets/pikachu.mp3');
+// 	audio.loop = false;
+// 	audio.play();
+// };
+
 playVictory = function () {
 	let audio = new Audio('./assets/victory.mp3');
 	audio.loop = false;
@@ -641,14 +690,87 @@ playBite = function () {
 	audio.play();
 };
 
-playPikachu = function () {
-	let audio = new Audio('./assets/pikachu.mp3');
+playBlessing = function () {
+	let audio = new Audio('./assets/blessing.mp3');
 	audio.loop = false;
 	audio.play();
 };
 
-playBlessing = function () {
-	let audio = new Audio('./assets/blessing.mp3');
+playClick = function () {
+	let audio = new Audio('./assets/click.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playGoBack = function () {
+	let audio = new Audio('./assets/go_back.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playHitMonster = function () {
+	let audio = new Audio('./assets/hit_monster.mp3');
+	audio.loop = false;
+	audio.play();
+};
+playHitBoss = function () {
+	let audio = new Audio('./assets/hit_boss.mp3');
+	audio.loop = false;
+	audio.play();
+};
+playHitMiss = function () {
+	let audio = new Audio('./assets/hit_miss.mp3');
+	audio.loop = false;
+	audio.play();
+};
+playHurt = function () {
+	let audio = new Audio('./assets/hurt.mp3');
+	audio.loop = false;
+	audio.play();
+};
+playDefeatMonster = function () {
+	let audio = new Audio('./assets/defeat_monster.mp3');
+	audio.loop = false;
+	audio.play();
+};
+playRareDrop = function () {
+	let audio = new Audio('./assets/rare_drop.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playDestroyed = function () {
+	let audio = new Audio('./assets/destroyed.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playLose = function () {
+	let audio = new Audio('./assets/lose.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playDodge = function () {
+	let audio = new Audio('./assets/dodge.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playEscape = function () {
+	let audio = new Audio('./assets/escape.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playLevelUp = function () {
+	let audio = new Audio('./assets/levelup.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playDenied = function () {
+	let audio = new Audio('./assets/denied.mp3');
 	audio.loop = false;
 	audio.play();
 };
