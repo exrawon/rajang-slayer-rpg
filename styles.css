@@ -4,7 +4,7 @@
 }
 
 #version {
-	color: white;
+	color: #ffffff;
 	position: fixed;
 	bottom: 0;
 	right: 0;
@@ -141,7 +141,7 @@ button:active {
 	width: 100vw;
 	/* opacity:95%; */
 	z-index: 10;
-	color: white;
+	color: #ffffff;
 	font-family: 'Poppins', sans-serif;
 	display: flex;
 	justify-content: center;
@@ -150,15 +150,17 @@ button:active {
 	gap: 50px;
 }
 #coverTextLarge {
+	cursor: pointer;
 	margin: 0;
 	padding: 0;
 	text-align: center;
 	text-transform: uppercase;
-	font-weight: 900;
+	font-weight: 1000;
+	text-shadow: 0px 0px 1px #0a0a23;
 }
 
 #title-container {
-	cursor: pointer;
+	/* cursor: pointer; */
 	margin: 0;
 	padding: 0;
 	opacity: 0.8;
@@ -172,14 +174,49 @@ button:active {
 	font-size: 12cqw;
 	clip-path: inset(0px 50% 0px 50%);
 	-webkit-clip-path: inset(0px 50% 0px 50%);
-	animation: revealText 2s ease-in forwards;
+	animation: revealText 1s ease-in forwards,
+		blinkEyes 15s ease-in-out infinite 7000ms;
+	margin-bottom: 10vh;
+}
+#title-container:hover {
+	opacity: 0.9;
+}
+.titleClicked {
+	transform: rotate(-5deg) skew(-5deg);
+	height: 20% !important;
+	width: 150% !important;
+	background-color: firebrick !important;
 }
 
-#title-container:hover {
-	background-color: firebrick;
-	transform: rotate(-5deg) skew(-5deg);
-	height: 20%;
-	width: 150%;
+@keyframes blinkEyes {
+	1% {
+		height: 0%;
+	}
+	0%,
+	2%,
+	100% {
+		height: 15%;
+	}
+}
+@-webkit-keyframes blinkEyes {
+	1% {
+		height: 0%;
+	}
+	0%,
+	2%,
+	100% {
+		height: 15%;
+	}
+}
+@-moz-keyframes blinkEyes {
+	1% {
+		height: 0%;
+	}
+	0%,
+	2%,
+	100% {
+		height: 15%;
+	}
 }
 
 @keyframes revealText {
@@ -223,6 +260,9 @@ button:active {
 	font-size: larger;
 	position: absolute;
 	bottom: 30%;
+	box-sizing: border-box;
+	padding: 40px 50px 40px 50px;
+	/* border: 5px solid red; */
 }
 
 @-webkit-keyframes fadein {
@@ -280,4 +320,9 @@ button:active {
 	.stat {
 		display: block;
 	}
+}
+
+/* to disable divs since adding .disabled in javascript does not work*/
+.disabledbutton {
+	pointer-events: none;
 }

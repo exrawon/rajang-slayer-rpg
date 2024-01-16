@@ -1,8 +1,9 @@
 let xp = 1,
 	health = 100,
 	gold = 30,
-	currentWeapon = 0; //to get index of element in weapons
-let fighting,
+	currentWeapon = 0,
+	inStore,
+	fighting,
 	monsterHealth,
 	inventory = ["🔪 Hunter's Knife"];
 
@@ -17,8 +18,12 @@ const monsterStats = document.querySelector('#monsterStats');
 const monsterName = document.querySelector('#monsterName');
 const monsterHealthText = document.querySelector('#monsterHealth');
 const banner = document.querySelector('#banner');
+const version = document.querySelector('#version');
 const cover = document.getElementsByClassName('tapCover');
-const audio = document.querySelector('audio');
+const bgmMain = document.querySelector('#bgmMain');
+const bgmBoss = document.querySelector('#bgmBoss');
+const bgmWild = document.querySelector('#bgmWild');
+const bgmStore = document.querySelector('#bgmStore');
 const weapons = [
 	{
 		name: "🔪 Hunter's Knife",
@@ -34,19 +39,19 @@ const weapons = [
 	},
 	{
 		name: '🗡️✦✦✦ Jagras Deathclaw',
-		power: 55,
+		power: 60,
 	},
 	{
-		name: '🗡️✦✦✦✦ Guild Palace Blade',
+		name: "🗡️✦✦✦✦ Wyvern Ignition 'Steel'",
 		power: 90,
 	},
 	{
 		name: "🗡️✦✦✦✦✦ Wyvern Ignition 'Impact'",
-		power: 150,
+		power: 130,
 	},
 	{
-		name: "🗡️✦✦✦✦✦✦ Safi's Dreamsplitter",
-		power: 195,
+		name: "🗡️✦✦✦✦✦✦ Wyvern Ignition 'Silver'",
+		power: 175,
 	},
 	{
 		name: '🗡️✦✦✦✦✦✦✦ Lightbreak Blade',
@@ -70,8 +75,8 @@ const monsters = [
 		goldMultiplier: 1.7,
 	},
 	{
-		name: 'Rathian',
-		monsterIcon: ' 🦖',
+		name: 'Rathalos',
+		monsterIcon: ' 🐦',
 		level: 20,
 		health: 400,
 		goldMultiplier: 4.3,
@@ -114,7 +119,7 @@ const locations = [
 		name: 'ancient forest',
 		'button text': [
 			'Hunt a Great Jagras 🦎\n  ★',
-			'Hunt a Rathian 🦖\n  ★★★',
+			'Hunt a Rathalos 🐦\n  ★★★',
 			'Return from Expedition ↩',
 		],
 		'button functions': [fightEasy, fightHard, goTown],
@@ -170,10 +175,38 @@ button2.onclick = goCave;
 button3.onclick = fightBoss;
 cover[1].onclick = tapToPlay;
 cover[2].onclick = tapToPlay;
+version.onclick = pauseBGM;
+banner.onclick = pauseBGM;
 
 function tapToPlay() {
+	document.querySelector('#coverTextSmall').classList.add('disabledbutton');
+	setTimeout(() => {
+		document
+			.querySelector('#coverTextSmall')
+			.classList.remove('disabledbutton');
+	}, 2100);
+	document.querySelector('#coverTextLarge').classList.add('disabledbutton');
+	setTimeout(() => {
+		document
+			.querySelector('#coverTextLarge')
+			.classList.remove('disabledbutton');
+	}, 2100);
+
+	playRoar();
+	document.querySelector('#title-container').classList.add('titleClicked');
+
+	setTimeout(() => {
+		for (let elem of cover) {
+			elem.style.display = 'none';
+		}
+	}, 2000);
+}
+function resetCover() {
+	bgmMain.currentTime = 0;
+	bgmMain.play();
+	document.querySelector('#title-container').classList.remove('titleClicked');
 	for (let elem of cover) {
-		elem.style.display = 'none';
+		elem.style.display = '';
 	}
 }
 //function that updates the buttons, its functions and the textbox, set to a given location
@@ -193,29 +226,25 @@ function update(location) {
 	text.innerText = location.text;
 }
 function goTown() {
+	bgmWild.pause();
+	bgmWild.currentTime = 0;
+	bgmMain.play();
 	text.innerText += '\n Travelling by wingdrake...';
 	antiSpam(2100);
-	setTimeout(() => update(locations[0]), 2000);
 	setTimeout(() => {
 		text.style.textAlign = 'initial';
+		update(locations[0]);
 	}, 2000);
-}
-
-function walkBack() {
-	text.innerText += '\n\n Walking back to Astera...';
-	antiSpam(1100);
-	setTimeout(() => update(locations[0]), 1000);
-}
-function newGame() {
-	antiSpam(3100);
-	text.innerText += '\nLoading new game...\n\n🐒\n\n';
-	setTimeout(() => update(locations[0]), 3000);
-	setTimeout(() => {
-		text.style.textAlign = 'initial';
-	}, 3000);
 }
 function goStore() {
 	antiSpam(1100);
+	inStore = true;
+	setTimeout(() => {
+		bgmMain.pause();
+		bgmMain.currentTime = 0;
+		bgmStore.play();
+	}, 1000);
+
 	text.innerText += '\n Using a ropelift...';
 	if (currentWeapon == weapons.length - 1 && inventory.length == 1) {
 		setTimeout(() => update(locations[1]), 1000);
@@ -232,6 +261,9 @@ function goStore() {
 	}
 }
 function goCave() {
+	bgmWild.pause();
+	bgmWild.currentTime = 0;
+	bgmMain.play();
 	text.innerText += '\n Travelling by wingdrake...';
 	antiSpam(2100);
 	setTimeout(() => update(locations[2]), 2000);
@@ -240,14 +272,26 @@ function goCave() {
 	}, 2000);
 }
 
+function walkBack() {
+	text.innerText += '\n\n Walking back to Astera...';
+	antiSpam(1100);
+	setTimeout(() => {
+		bgmStore.pause();
+		bgmStore.currentTime = 0;
+		bgmMain.play();
+		update(locations[0]);
+		inStore = false;
+	}, 1000);
+}
+
 function buyHealth() {
-	antiSpam(300);
+	antiSpam(1000);
 	if (gold >= 10 && health < 180) {
 		gold -= 10;
 		health += 20;
 		goldText.innerText = gold;
 		healthText.innerText = health;
-
+		playBite();
 		text.innerText += '\nChomp chomp! You gain 20 ❤️ health.';
 	} else if (gold >= 10 && health >= 180 && health < 200) {
 		gold -= 10;
@@ -255,8 +299,9 @@ function buyHealth() {
 		health += healthRound;
 		goldText.innerText = gold;
 		healthText.innerText = 200;
+		playBite();
 		text.innerText +=
-			'\nSlurp slurp! You gain ' +
+			'\nSlurp slurp slurrrp! You gain ' +
 			healthRound +
 			" ❤️ health.\nYou let out a big burp!\nThat's enough food for now...\n";
 	} else if (gold >= 10 && health >= 200) {
@@ -280,14 +325,15 @@ function buyWeapon() {
 				currentWeapon++;
 				let newWeapon = weapons[currentWeapon].name;
 				inventory.push(newWeapon);
+				goldText.innerText = gold;
 				setTimeout(() => {
 					text.innerText =
 						'You upgraded your weapon for 999 🪙.\n' +
 						newWeapon +
 						' obtained.\n';
 					text.innerText += '\nInventory:\n ' + inventory.join('\r\n') + '\n';
+					playSpending();
 				}, 2000);
-				goldText.innerText = gold;
 			} else {
 				text.innerText =
 					'You do not have enough 🪙 gold to buy a new weapon.\n\nInventory:\n ' +
@@ -299,12 +345,13 @@ function buyWeapon() {
 			currentWeapon++;
 			let newWeapon = weapons[currentWeapon].name;
 			inventory.push(newWeapon);
+			goldText.innerText = gold;
 			setTimeout(() => {
 				text.innerText =
 					'You upgraded your weapon for 30 🪙.\n' + newWeapon + ' obtained.\n';
 				text.innerText += '\nInventory:\n ' + inventory.join('\r\n') + '\n';
+				playSpending();
 			}, 2000);
-			goldText.innerText = gold;
 		} else {
 			text.innerText =
 				'You do not have enough 🪙 gold to buy a new weapon.\n\nInventory:\n ' +
@@ -331,6 +378,7 @@ function sellWeapon() {
 		setTimeout(() => {
 			text.innerText = 'Sold ' + oldWeapon + ' for 15 🪙.\n';
 			text.innerText += '\nInventory: \n' + inventory.join('\r\n') + '\n';
+			playSelling();
 		}, 2000);
 	} else {
 		text.innerText = "Don't sell your only weapon!\n";
@@ -345,7 +393,7 @@ function fightEasy() {
 	setTimeout(() => goFight(), 1000);
 }
 function fightHard() {
-	banner.style.backgroundImage = 'url(./assets/rathian.jpg)';
+	banner.style.backgroundImage = 'url(./assets/rathalos.jpg)';
 	fighting = 1;
 	text.innerText += '\n Preparing for combat...';
 	antiSpam(1100);
@@ -360,6 +408,15 @@ function fightBoss() {
 }
 
 function goFight() {
+	if (fighting === 2) {
+		bgmMain.pause();
+		bgmMain.currentTime = 0;
+		bgmBoss.play();
+	} else {
+		bgmMain.pause();
+		bgmMain.currentTime = 0;
+		bgmWild.play();
+	}
 	update(locations[3]);
 	monsterHealth = monsters[fighting].health;
 	monsterStats.style.display = 'block';
@@ -397,6 +454,9 @@ function attack() {
 		currentWeapon--;
 	}
 	if (health <= 0) {
+		if (monsterHealth <= 0) {
+			monsterHealthText.innerText = 0;
+		}
 		healthText.innerText = 0;
 		text.innerText += `\n☠️ You have died. ☠️`;
 		setTimeout(lose, 2000);
@@ -426,7 +486,7 @@ function dodge() {
 	antiSpam(2100);
 	health -= 2;
 	healthText.innerText = health;
-	if (Math.floor(Math.random() * 100 + 1) > 65) {
+	if (Math.floor(Math.random() * 100 + 1) > 60) {
 		text.innerText += `\nYou tripped and fell over a rock.\nYou lost 50 ❤️ health.\n--------------------------------------------------------------------------`;
 		health -= 50;
 		healthText.innerText = health;
@@ -434,16 +494,19 @@ function dodge() {
 		text.innerText += `\nOooh...a shiny! You looted 7 🪙.\n--------------------------------------------------------------------------`;
 		gold += 7;
 		goldText.innerText = gold;
+		playSelling();
 	} else if (Math.floor(Math.random() * 100 + 1) > 9) {
 		text.innerText += `\nYou dodge the attack from ${monsters[fighting].name}.\n ${monsters[fighting].name} looks at you angrily.\n--------------------------------------------------------------------------`;
 	} else if (Math.floor(Math.random() * 100 + 1) > 3) {
 		text.innerText += `\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n\nA ${monsters[fighting].name} Gem drops from the monster's butthole.\n You quickly retrieve it while ${monsters[fighting].name} is distracted.\nYou gain 200 🪙.\n\n✨️✨️✨️✨️✨️✨️💎✨️✨️✨️✨️✨️✨️\n--------------------------------------------------------------------------`;
 		gold += 200;
 		goldText.innerText = gold;
+		playPikachu();
 	} else {
 		monsterHealthText.innerText = 0;
 		text.style.textAlign = 'center';
 		text.innerText = `\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n\nYou received a divine blessing.\n\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀\n\n`;
+		playBlessing();
 		fighting === 2
 			? setTimeout(winGame, 2000)
 			: setTimeout(defeatMonster, 2000);
@@ -470,19 +533,40 @@ function defeatMonster() {
 }
 
 function runAway() {
+	antiSpam(1600);
+	setTimeout(() => {
+		bgmBoss.pause();
+		bgmWild.pause();
+		bgmMain.play();
+		bgmBoss.currentTime = 0;
+		bgmWild.currentTime = 0;
+	}, 1500);
+
 	text.innerText += '\n\n Using a farcaster...';
-	antiSpam(1100);
 	fighting === 2
-		? setTimeout(() => update(locations[0]), 1000)
-		: setTimeout(() => update(locations[2]), 1000);
+		? setTimeout(() => update(locations[0]), 1500)
+		: setTimeout(() => update(locations[2]), 1500);
+	fighting = undefined;
 }
 function lose() {
+	bgmMain.pause();
+	bgmBoss.pause();
+	bgmBoss.currentTime = 0;
+	bgmWild.pause();
+	bgmWild.currentTime = 0;
 	text.style.textAlign = 'center';
 	update(locations[5]);
 }
-
+function newGame() {
+	antiSpam(3100);
+	text.innerText += '\nLoading new game...\n\n🐒\n\n';
+	setTimeout(() => update(locations[0]), 3000);
+	setTimeout(() => {
+		text.style.textAlign = 'initial';
+	}, 3000);
+}
 function winGame() {
-	antiSpam(500);
+	playVictory();
 	text.style.textAlign = 'center';
 	update(locations[6]);
 }
@@ -496,6 +580,7 @@ function restart() {
 	goldText.innerText = gold;
 	healthText.innerText = health;
 	xpText.innerText = xp;
+	setTimeout(resetCover, 3000);
 	newGame();
 }
 
@@ -508,6 +593,62 @@ function antiSpam(delay) {
 	setTimeout(() => (button3.disabled = false), delay);
 }
 
-banner.onclick = function () {
-	audio.paused ? audio.play() : audio.pause();
+// to control the play/pause banner when in different locations
+function pauseBGM() {
+	if (inStore) {
+		bgmStore.paused ? bgmStore.play() : bgmStore.pause();
+	} else if (fighting === 2) {
+		bgmBoss.paused ? bgmBoss.play() : bgmBoss.pause();
+	} else if (fighting === 0 || fighting === 1) {
+		bgmWild.paused ? bgmWild.play() : bgmWild.pause();
+	} else bgmMain.paused ? bgmMain.play() : bgmMain.pause();
+}
+
+//to change visuals of title text (moved to onclick)
+// document.querySelector('#title-container').addEventListener('click', () => {
+// 	document.querySelector('#title-container').classList.add('titleClicked');
+// });
+playRoar = function () {
+	let audio = new Audio('./assets/roar_rajang.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playVictory = function () {
+	let audio = new Audio('./assets/victory.mp3');
+	audio.loop = false;
+	audio.play();
+	bgmMain.pause();
+	bgmBoss.pause();
+	bgmBoss.currentTime = 0;
+};
+
+playSpending = function () {
+	let audio = new Audio('./assets/spending.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playSelling = function () {
+	let audio = new Audio('./assets/selling.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playBite = function () {
+	let audio = new Audio('./assets/bite.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playPikachu = function () {
+	let audio = new Audio('./assets/pikachu.mp3');
+	audio.loop = false;
+	audio.play();
+};
+
+playBlessing = function () {
+	let audio = new Audio('./assets/blessing.mp3');
+	audio.loop = false;
+	audio.play();
 };
