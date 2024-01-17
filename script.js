@@ -192,6 +192,9 @@ cover[2].onclick = tapToPlay;
 version.onclick = pauseBGM;
 
 function tapToPlay() {
+	setTimeout(() => {
+		bgmMain.play();
+	}, 3000);
 	playRoar();
 	// playPikachu();
 	document.querySelector('#coverTextSmall').classList.add('disabledbutton');
@@ -441,13 +444,13 @@ function fightBoss() {
 
 function goFight() {
 	if (fighting === 2) {
-		bgmMain.pause();
-		bgmMain.currentTime = 0;
 		bgmBoss.play();
-	} else {
 		bgmMain.pause();
 		bgmMain.currentTime = 0;
+	} else {
 		bgmWild.play();
+		bgmMain.pause();
+		bgmMain.currentTime = 0;
 	}
 	update(locations[3]);
 	monsterHealth = monsters[fighting].health;
@@ -599,7 +602,7 @@ function lose() {
 	bgmBoss.currentTime = 0;
 	bgmWild.pause();
 	bgmWild.currentTime = 0;
-
+	fighting = undefined;
 	text.style.textAlign = 'center';
 	update(locations[5]);
 }
@@ -615,6 +618,7 @@ function winGame() {
 	playVictory();
 	text.style.textAlign = 'center';
 	update(locations[6]);
+	fighting = undefined;
 }
 
 function restart() {

@@ -178,7 +178,7 @@ button:active {
 	clip-path: inset(0px 50% 0px 50%);
 	-webkit-clip-path: inset(0px 50% 0px 50%);
 	animation: revealText 1s ease-in forwards,
-		blinkEyes 15s ease-in-out infinite 3000ms;
+		blinkEyes 10s ease-in-out infinite 3000ms;
 	margin-bottom: 12vw;
 }
 #title-container:hover {
