@@ -187,7 +187,7 @@ button:active {
 .titleClicked {
 	transform: rotate(-5deg) skew(-5deg);
 	height: 20% !important;
-	width: 150% !important;
+	width: 105% !important;
 	background-color: firebrick !important;
 }
 
