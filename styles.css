@@ -4,6 +4,10 @@
 }
 
 #cornerInfo {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	justify-content: center;
 	color: #ffffff;
 	position: fixed;
 	bottom: 0;
@@ -13,11 +17,13 @@
 	z-index: 11;
 }
 
-#cornerInfo div {
-	display: flex;
-	justify-content: center;
+#cornerInfo span {
 	z-index: 11;
 	font-size: 1em;
+}
+
+#volume {
+	padding-bottom: 2px;
 }
 
 html {

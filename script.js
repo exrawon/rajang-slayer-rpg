@@ -175,7 +175,8 @@ const locations = [
 	},
 ];
 
-//initialize buttons
+//end of declaration section//
+
 button1.onclick = () => {
 	goStore();
 };
@@ -529,7 +530,7 @@ function dodge() {
 	antiSpam(2100);
 	health -= 2;
 	healthText.innerText = health;
-	if (Math.floor(Math.random() * 100 + 1) > 70) {
+	if (Math.floor(Math.random() * 100 + 1) > 76) {
 		text.innerText += `\nYou tripped and fell over a rock.\nYou lost 50 ❤️ health.\n--------------------------------------------------------------------------`;
 		health -= 50;
 		healthText.innerText = health;
@@ -644,17 +645,6 @@ function antiSpam(delay) {
 	setTimeout(() => (button3.disabled = false), delay);
 }
 
-// to control the play/pause banner when in different locations
-// function pauseBGM() {
-// 	if (inStore) {
-// 		bgmStore.paused ? bgmStore.play() : bgmStore.pause();
-// 	} else if (fighting === 2) {
-// 		bgmBoss.paused ? bgmBoss.play() : bgmBoss.pause();
-// 	} else if (fighting === 0 || fighting === 1) {
-// 		bgmWild.paused ? bgmWild.play() : bgmWild.pause();
-// 	} else bgmMain.paused ? bgmMain.play() : bgmMain.pause();
-// }
-
 //audio controls section//
 function muteBGM() {
 	Array.from(bgmAll).map((element) => {
@@ -666,20 +656,8 @@ function muteBGM() {
 			volume.innerText = '🔊';
 		}
 	});
-	// for(let i in bgmAll) {
-	// 	if(bgmAll[i].muted == false) {
-	// 		bgmAll[i].muted = true
-	// 	}
-	// 	else {
-	// 		bgmAll[i].muted = false
-	// 	}
-	// }
 }
 
-//to change visuals of title text (moved to onclick)
-// document.querySelector('#title-container').addEventListener('click', () => {
-// 	document.querySelector('#title-container').classList.add('titleClicked');
-// });
 playRoar = function () {
 	let audio = new Audio('./assets/roar_rajang.mp3');
 	audio.loop = false;
