@@ -3,7 +3,7 @@
 	width: 0px;
 }
 
-#version {
+#cornerInfo {
 	color: #ffffff;
 	position: fixed;
 	bottom: 0;
@@ -11,6 +11,13 @@
 	padding-right: 5px;
 	font-size: 1em;
 	z-index: 11;
+}
+
+#cornerInfo div {
+	display: flex;
+	justify-content: center;
+	z-index: 11;
+	font-size: 1em;
 }
 
 html {

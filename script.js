@@ -18,8 +18,10 @@ const monsterStats = document.querySelector('#monsterStats');
 const monsterName = document.querySelector('#monsterName');
 const monsterHealthText = document.querySelector('#monsterHealth');
 const banner = document.querySelector('#banner');
-const version = document.querySelector('#version');
+const volume = document.querySelector('#volume');
+const cornerInfo = document.querySelector('#cornerInfo');
 const cover = document.getElementsByClassName('tapCover');
+const bgmAll = document.querySelectorAll('audio');
 const bgmMain = document.querySelector('#bgmMain');
 const bgmBoss = document.querySelector('#bgmBoss');
 const bgmWild = document.querySelector('#bgmWild');
@@ -184,12 +186,12 @@ button3.onclick = () => {
 	fightBoss();
 };
 banner.onclick = () => {
-	pauseBGM();
+	muteBGM();
 	playClick();
 };
 cover[1].onclick = tapToPlay;
 cover[2].onclick = tapToPlay;
-version.onclick = pauseBGM;
+cornerInfo.onclick = muteBGM;
 
 function tapToPlay() {
 	setTimeout(() => {
@@ -515,7 +517,6 @@ function attack() {
 
 function getMonsterAttackValue(level) {
 	const hit = Math.round(level * 3.3) - Math.floor(Math.random() * xp);
-	console.log(hit);
 	return hit > 0 ? hit : 0;
 }
 
@@ -644,14 +645,35 @@ function antiSpam(delay) {
 }
 
 // to control the play/pause banner when in different locations
-function pauseBGM() {
-	if (inStore) {
-		bgmStore.paused ? bgmStore.play() : bgmStore.pause();
-	} else if (fighting === 2) {
-		bgmBoss.paused ? bgmBoss.play() : bgmBoss.pause();
-	} else if (fighting === 0 || fighting === 1) {
-		bgmWild.paused ? bgmWild.play() : bgmWild.pause();
-	} else bgmMain.paused ? bgmMain.play() : bgmMain.pause();
+// function pauseBGM() {
+// 	if (inStore) {
+// 		bgmStore.paused ? bgmStore.play() : bgmStore.pause();
+// 	} else if (fighting === 2) {
+// 		bgmBoss.paused ? bgmBoss.play() : bgmBoss.pause();
+// 	} else if (fighting === 0 || fighting === 1) {
+// 		bgmWild.paused ? bgmWild.play() : bgmWild.pause();
+// 	} else bgmMain.paused ? bgmMain.play() : bgmMain.pause();
+// }
+
+//audio controls section//
+function muteBGM() {
+	Array.from(bgmAll).map((element) => {
+		if (element.muted == false) {
+			element.muted = true;
+			volume.innerText = '🔈';
+		} else {
+			element.muted = false;
+			volume.innerText = '🔊';
+		}
+	});
+	// for(let i in bgmAll) {
+	// 	if(bgmAll[i].muted == false) {
+	// 		bgmAll[i].muted = true
+	// 	}
+	// 	else {
+	// 		bgmAll[i].muted = false
+	// 	}
+	// }
 }
 
 //to change visuals of title text (moved to onclick)
